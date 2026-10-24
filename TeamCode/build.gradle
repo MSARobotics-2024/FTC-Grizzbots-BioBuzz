@@ -12,9 +12,24 @@ apply plugin: 'com.android.application'
 
 // Custom definitions may go here
 
+// This buildscript is what helps run the Sloth Load after it is installed - Jason
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://repo.dairy.foundation/releases"
+        }
+    }
+    dependencies {
+        classpath "dev.frozenmilk:Load:0.2.4"
+    }
+}
+
 // Include common definitions from above.
 apply from: '../build.common.gradle'
 apply from: '../build.dependencies.gradle'
+// Apply Sloth Load plugin for quick uploads - Jason
+apply plugin: 'dev.frozenmilk.sinister.sloth.load'
 
 android {
     namespace = 'org.firstinspires.ftc.teamcode'
@@ -24,6 +39,15 @@ android {
     }
 }
 
+// Adds the repositories needed for Sloth Load - Jason
+repositories {
+    maven {
+        url = "https://repo.dairy.foundation/releases"
+    }
+}
+
 dependencies {
     implementation project(':FtcRobotController')
+    // This adds the Sloth implementation - Jason
+    implementation "dev.frozenmilk.sinister:Sloth:0.2.4"
 }
